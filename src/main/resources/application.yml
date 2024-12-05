@@ -1,0 +1,14 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        default_schema: public
+
+  docker:
+    compose:
+      file: src/docker/compose.yaml
+      enabled: true
+      lifecycle-management: start_only
+
+jwt:
+  secret: 3f+3wVmXQf4QCqaahmWBf/1Y9ysGnJsMImW4N7BJQDPqHtmWN8STm+S+7+7Jm0++EKd1y4Y/I8LNTly1ImSqKw==

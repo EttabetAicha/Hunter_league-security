@@ -1,0 +1,11 @@
+name: samurai
+services:
+  postgres:
+    container_name: samurai_db
+    image: 'postgres:17'
+    environment:
+      - 'POSTGRES_DB=samurai'
+      - 'POSTGRES_PASSWORD=password'
+      - 'POSTGRES_USER=samurai'
+    ports:
+      - '5433:5432'
