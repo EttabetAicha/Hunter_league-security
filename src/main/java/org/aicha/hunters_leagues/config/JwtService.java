@@ -21,7 +21,7 @@ import java.util.function.Function;
 public class JwtService {
 
     private  String secretKey="";
-
+    //constructor to generate secret key
     public JwtService() {
         try {
             KeyGenerator keyGenerator = KeyGenerator.getInstance("HmacSHA256");
@@ -40,7 +40,7 @@ public class JwtService {
             throw e;
         }
     }
-
+//generate token with extra claims and user details
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return Jwts.builder()
                 .setClaims(extraClaims)
