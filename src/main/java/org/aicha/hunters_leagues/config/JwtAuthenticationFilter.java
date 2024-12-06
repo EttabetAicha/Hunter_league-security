@@ -22,11 +22,12 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
+    // declare logger object
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
-
+    // method to filter request and response
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
