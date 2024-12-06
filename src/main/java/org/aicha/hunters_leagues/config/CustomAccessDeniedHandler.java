@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
-
+//method to handle access denied exception
     @Override
     public void handle(HttpServletRequest request,
                        HttpServletResponse response,
