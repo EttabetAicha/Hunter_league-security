@@ -6,7 +6,6 @@ import org.aicha.hunters_leagues.web.vm.mapper.UserVmMapper;
 import org.aicha.hunters_leagues.web.vm.request.LoginRequest;
 import org.aicha.hunters_leagues.web.vm.request.RegisterRequest;
 import org.aicha.hunters_leagues.web.vm.response.AuthResponse;
-import org.aicha.hunters_leagues.web.vm.response.UserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
