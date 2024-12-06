@@ -19,7 +19,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
+// implement UserDetails interface to use it in spring security context to authenticate user and check his authorities and permissions
 public class User  implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
