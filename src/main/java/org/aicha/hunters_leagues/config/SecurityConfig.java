@@ -22,6 +22,7 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
+    // configure security filter chain to secure the application endpoints and resources with JWT authentication and authorization mechanism
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
