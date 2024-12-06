@@ -58,7 +58,7 @@ public class UserService {
 
     }
 
-
+    //method to add user and generate token for user to login after registration
     public User addSUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new EmailAlreadyExisteException("Email already exists");
@@ -133,6 +133,7 @@ public class UserService {
 //
 //        return userEntity;
 //    }
+    //method to login user and generate token
 public User login(String email, String password) {
     User user = userRepository.findByEmail(email)
             .orElseThrow(() -> new ResourceNotFoundException("Email not found"));
