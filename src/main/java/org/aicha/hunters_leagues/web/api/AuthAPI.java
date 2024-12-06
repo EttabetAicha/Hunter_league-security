@@ -19,6 +19,7 @@ public class AuthAPI {
 
     private final UserService userService;
     private final UserVmMapper userVmMapper;
+    // method to login user
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(
             @Valid @RequestBody LoginRequest loginRequest) {
@@ -26,6 +27,7 @@ public class AuthAPI {
         return ResponseEntity.ok(AuthResponse.builder().token(user.getToken()).build());
     }
 
+    // method to register user
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(
             @Valid @RequestBody RegisterRequest registerRequest) {
