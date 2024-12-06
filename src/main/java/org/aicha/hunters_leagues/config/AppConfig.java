@@ -18,17 +18,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class AppConfig {
 
     private final UserRepository userRepository;
-
+//get user by email or username
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
             System.out.println("Attempting to load user with username/email: " + username);
             return userRepository.findByEmail(username)
-                    .or(() -> userRepository.findByUsername(username))
+                    .or(() ->userRepository.findByUsername(username))
                     .orElseThrow(() -> new UsernameNotFoundException("User not found with email/username: " + username));
         };
     }
-
+// authenticate user
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -37,11 +37,12 @@ public class AppConfig {
         return provider;
     }
 
+    // encode password
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
+// authenticate user
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
