@@ -9,6 +9,21 @@ spring:
       file: src/docker/compose.yaml
       enabled: true
       lifecycle-management: start_only
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: Ov23liGiUoHUYSebPGZz
+            client-secret: 37f4b362b9e07ba50ff79f3cefe24265a979260e
+
 
 jwt:
   secret: 3f+3wVmXQf4QCqaahmWBf/1Y9ysGnJsMImW4N7BJQDPqHtmWN8STm+S+7+7Jm0++EKd1y4Y/I8LNTly1ImSqKw==
+server:
+  port: 8443
+  ssl:
+    key-store: keystore.p12
+    key-store-password: aicha2580
+    key-store-type: PKCS12
+    key-alias: myapp
