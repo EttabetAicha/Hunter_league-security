@@ -30,8 +30,8 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/").permitAll()
-//                        .requestMatchers("/api/auth/login").permitAll()
-//                        .requestMatchers("/api/auth/register").permitAll()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/register").permitAll()
                         .requestMatchers("/api/species/**").hasRole("ADMIN")
                         .requestMatchers("/api/competitions/**").hasRole("MEMBER")
                         .requestMatchers("/api/participations/**").hasAuthority("CAN_MANAGE_COMPETITIONS")
