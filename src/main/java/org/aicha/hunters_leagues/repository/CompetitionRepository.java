@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CompetitionRepository extends JpaRepository<Competition, UUID> {
-
+//test
     Page<Competition> findAll(Pageable pageable);
 
     @Query("SELECT new org.aicha.hunters_leagues.repository.dto.CompetitionRepoDTO(" +
