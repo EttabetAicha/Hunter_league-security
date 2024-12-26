@@ -39,6 +39,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/users/**").hasRole("ADMIN")
                         .requestMatchers("/api/species/**").hasAuthority("CAN_MANAGE_SPECIES")
                         .requestMatchers("/api/competitions/**").hasAnyAuthority("CAN_MANAGE_COMPETITIONS", "CAN_PARTICIPATE", "CAN_VIEW_COMPETITIONS", "CAN_SCORE")
                         .requestMatchers("/api/participations/**").hasAuthority("CAN_MANAGE_PARTICIPATIONS")
@@ -48,7 +49,8 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception
                         .accessDeniedHandler(customAccessDeniedHandler)
                 )
-                .authenticationProvider(authenticationProvider);
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
