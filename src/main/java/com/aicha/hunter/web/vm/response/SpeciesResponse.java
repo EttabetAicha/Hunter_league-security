@@ -20,6 +20,7 @@ public class SpeciesResponse {
     private Double minimumWeight;
 
     private Difficulty difficulty;
+
     private Integer points;
 
 }

@@ -2,18 +2,16 @@ package com.aicha.hunter.repository;
 
 import com.aicha.hunter.domain.entity.Species;
 import com.aicha.hunter.domain.enums.SpeciesType;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface SpeciesRepository extends JpaRepository<Species, UUID> {
 
-    Page<Species> findByCategory(SpeciesType category, Pageable pageable);
+    List<Species> findByCategory(SpeciesType category);
 
-
-    Page<Species> findAll(Pageable pageable);
+    List<Species> findAll();
 
     boolean existsByName(String name);
 }

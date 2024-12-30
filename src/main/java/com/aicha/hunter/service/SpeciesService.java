@@ -6,13 +6,11 @@ import com.aicha.hunter.exception.exps.ResourceNotFoundException;
 import com.aicha.hunter.repository.SpeciesRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -20,17 +18,14 @@ import java.util.UUID;
 public class SpeciesService {
 
     private final SpeciesRepository speciesRepository;
-
     private final HuntService huntService;
 
-
-    public Page<Species> getSpeciesByCategory(Species species , Pageable pageable) {
-        if (species.getCategory() == null){
-            return speciesRepository.findAll(pageable);
+    public List<Species> getSpeciesByCategory(Species species) {
+        if (species.getCategory() == null) {
+            return speciesRepository.findAll();
         }
-        return speciesRepository.findByCategory(species.getCategory(),pageable);
+        return speciesRepository.findByCategory(species.getCategory());
     }
-
 
     public Species addSpecies(Species species) {
         if (speciesRepository.existsByName(species.getName())) {
@@ -65,7 +60,7 @@ public class SpeciesService {
         return speciesRepository.save(species);
     }
 
-    public Species findById( UUID speciesId) {
+    public Species findById(UUID speciesId) {
         return speciesRepository.findById(speciesId)
                 .orElseThrow(() -> new ResourceNotFoundException("Species with id '" + speciesId + "' does not exist."));
     }

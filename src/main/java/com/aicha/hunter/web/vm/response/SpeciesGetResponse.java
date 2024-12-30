@@ -11,9 +11,14 @@ import java.util.UUID;
 @Setter
 public class SpeciesGetResponse {
     private UUID id;
+
     private String name;
+
     private SpeciesType category;
+
     private Double minimumWeight;
+
     private Difficulty difficulty;
+
     private Integer points;
 }
