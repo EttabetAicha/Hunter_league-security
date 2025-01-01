@@ -17,17 +17,11 @@ public interface CompetitionRepository extends JpaRepository<Competition, UUID> 
     Page<Competition> findAll(Pageable pageable);
 
     @Query("SELECT new com.aicha.hunter.repository.dto.CompetitionRepoDTO(" +
-            "c.id, c.location, c.date, SIZE(c.participations)) " +
+            "c.id, c.location, c.date, c.speciesType, c.minParticipants, c.maxParticipants, c.openRegistration, SIZE(c.participations)) " +
             "FROM Competition c")
     Page<CompetitionRepoDTO> findAllRepoDTO(Pageable pageable);
-
-
 
     @Query("SELECT c FROM Competition c WHERE c.date BETWEEN :startOfWeek AND :endOfWeek")
     Optional<Competition> findCompetitionByDateRange(@Param("startOfWeek") LocalDateTime startOfWeek,
                                                      @Param("endOfWeek") LocalDateTime endOfWeek);
-
-
-
-
 }

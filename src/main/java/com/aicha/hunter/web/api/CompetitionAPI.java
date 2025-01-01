@@ -16,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/competitions")
@@ -36,13 +38,12 @@ public class CompetitionAPI {
         return ResponseEntity.ok(competitionVmMapper.toCompetitionResponse(competition));
     }
 
+
     @GetMapping
     public ResponseEntity<Page<CompetitionRepoDTO>> getCompetitions(@RequestParam(defaultValue = "0") int page,
                                                                     @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<CompetitionRepoDTO> competitionDTOs = competitionService.getAllCompetition(pageable);
+        Page<CompetitionRepoDTO> competitionDTOs = competitionService.getAllCompetitions(pageable);
         return ResponseEntity.ok(competitionDTOs);
     }
-
-
 }

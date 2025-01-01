@@ -9,7 +9,6 @@ import com.aicha.hunter.exception.exps.InvalidPasswordException;
 import com.aicha.hunter.exception.exps.ResourceNotFoundException;
 import com.aicha.hunter.repository.UserRepository;
 import com.aicha.hunter.utils.PasswordUtil;
-
 import com.aicha.hunter.web.vm.mapper.UserVmMapper;
 import com.aicha.hunter.web.vm.request.AuthRequest;
 import com.aicha.hunter.web.vm.response.AuthResponse;
@@ -40,12 +39,11 @@ public class UserService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
-
-    public Page<User> searchUsers(User user , Pageable pageable) {
-        if (user.getFirstName() == null  &&
+    public Page<User> searchUsers(User user, Pageable pageable) {
+        if (user.getFirstName() == null &&
                 user.getLastName() == null &&
                 user.getCin() == null &&
-                user.getEmail() == null ) {
+                user.getEmail() == null) {
             return userRepository.findAll(pageable);
         }
 
@@ -56,19 +54,15 @@ public class UserService {
         Example<User> example = Example.of(user, matcher);
 
         return userRepository.findAll(example, pageable);
-
-
     }
 
-
     public User addSUser(User user) {
-
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new EmailAlreadyExisteException("Email already exists");
         }
 
         user.setJoinDate(LocalDateTime.now());
-        user.setUsername(user.getFirstName()+user.getLastName());
+        user.setUsername(user.getFirstName() + user.getLastName());
         user.setPassword(PasswordUtil.hashPassword(user.getPassword()));
 
         return userRepository.save(user);
@@ -82,12 +76,11 @@ public class UserService {
             if (userRepository.findByEmail(user.getEmail()).isPresent()) {
                 throw new EmailAlreadyExisteException("Email already exists");
             }
-
         }
 
         userToUpdate.setFirstName(user.getFirstName());
         userToUpdate.setLastName(user.getLastName());
-        userToUpdate.setUsername(user.getFirstName()+user.getLastName());
+        userToUpdate.setUsername(user.getFirstName() + user.getLastName());
         userToUpdate.setCin(user.getCin());
         userToUpdate.setEmail(user.getEmail());
         userToUpdate.setPassword(PasswordUtil.hashPassword(user.getPassword()));
@@ -96,7 +89,6 @@ public class UserService {
         userToUpdate.setRole(user.getRole());
 
         return userRepository.save(userToUpdate);
-
     }
 
     @Transactional
@@ -106,7 +98,6 @@ public class UserService {
 
         participationService.deleteParticipationsByUser(userToDelete);
         userRepository.deleteUser(userToDelete.getId());
-        //userRepository.deleteUserWithRelatedData(user.getId());
         return userToDelete;
     }
 
@@ -152,7 +143,6 @@ public class UserService {
         return -1;
     }
 
-
     private UserHistoryResponse mapToUserHistoryResponse(Participation participation, int rank) {
         UserHistoryResponse response = new UserHistoryResponse();
         response.setId(participation.getId());
@@ -162,8 +152,6 @@ public class UserService {
         response.setRank(rank);
         return response;
     }
-
-
 
     public AuthResponse loginAuth(AuthRequest authRequest) {
         try {
@@ -181,7 +169,7 @@ public class UserService {
                 throw new BadCredentialsException("Incorrect password. Please try again.");
             }
 
-            var token = jwtService.generateToken(user);
+            var token = jwtService.generateToken((UserDetails) user, user.getRole().name(), user.getId());
 
             return AuthResponse.builder()
                     .token(token)
@@ -193,6 +181,4 @@ public class UserService {
             throw new RuntimeException("Authentication failed", e);
         }
     }
-
-
 }

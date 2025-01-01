@@ -14,5 +14,4 @@ public class ParticipationResponse {
     private String username;
     private String code;
 
-
 }

@@ -11,6 +11,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
@@ -39,10 +40,12 @@ public class JwtService {
                 .compact();
 
     }
-    public String generateToken(UserDetails userDetails){
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateToken(UserDetails userDetails, String role, UUID userId) {
+        Map<String, Object> extraClaims = new HashMap<>();
+        extraClaims.put("role", role);
+        extraClaims.put("userId", userId.toString());
+        return generateToken(extraClaims, userDetails);
     }
-
     public <T> T extractClaim(String token, Function<Claims , T> claimsResolver) {
         final Claims claims = extractClaims(token);
         return claimsResolver.apply(claims);

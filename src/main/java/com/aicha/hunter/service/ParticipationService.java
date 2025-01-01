@@ -71,6 +71,9 @@ public class ParticipationService {
 
      participationRepository.deleteParticipationWithHunts(userToDelete.getId());
     }
+    public List<Participation> getAllParticipations() {
+        return participationRepository.findAll();
+    }
 
     public Participation findById( UUID participationId) {
         return participationRepository.findById(participationId)
@@ -98,9 +101,6 @@ public class ParticipationService {
     public void save(Participation participation) {
         participationRepository.save(participation);
     }
-
-
-
 
     public List<Participation> getParticipationResults(UUID userId, UUID competitionId) {
         User user = userService.findById(userId)

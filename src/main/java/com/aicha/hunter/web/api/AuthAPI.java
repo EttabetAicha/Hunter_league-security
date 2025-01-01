@@ -11,6 +11,7 @@ import com.aicha.hunter.web.vm.response.UserResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,7 +28,7 @@ public class AuthAPI {
             @Valid @RequestBody LoginRequest loginRequest) {
         User userEntity = userVmMapper.toUser(loginRequest);
         User user = userService.login(userEntity);
-        String token = jwtService.generateToken(user);
+        String token = jwtService.generateToken((UserDetails) user, user.getRole().name(), user.getId());
         return ResponseEntity.ok(new AuthResponse(token, userVmMapper.toUserResponse(user)));
     }
 
@@ -36,7 +37,7 @@ public class AuthAPI {
             @Valid @RequestBody RegisterRequest registerRequest) {
         User userEntity = userVmMapper.toUser(registerRequest);
         User user = userService.addSUser(userEntity);
-        String token = jwtService.generateToken(user);
+        String token = jwtService.generateToken((UserDetails) user, user.getRole().name(), user.getId());
         return ResponseEntity.ok(new AuthResponse(token, userVmMapper.toUserResponse(user)));
     }
 
