@@ -65,6 +65,10 @@ public class ParticipationService {
 
         return participationRepository.save(participation1);
     }
+    public List<Participation> findByUserAndCompetition(User user, Competition competition) {
+        return participationRepository.findByUserAndCompetition(user, competition);
+    }
+
 
     @Transactional
     public void deleteParticipationsByUser(User userToDelete) {
@@ -79,7 +83,6 @@ public class ParticipationService {
         return participationRepository.findById(participationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Species with id '" + participationId + "' does not exist."));
     }
-
 
     public double updateScore(Participation participation) {
 
@@ -121,6 +124,7 @@ public class ParticipationService {
 
 
     }
+
 
 
     public Page<Participation> findByUserOrderByCompetitionDateDesc(User user, Pageable pageable) {

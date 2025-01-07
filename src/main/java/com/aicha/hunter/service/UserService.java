@@ -153,6 +153,7 @@ public class UserService {
         return response;
     }
 
+
     public AuthResponse loginAuth(AuthRequest authRequest) {
         try {
             User user = userRepository.findByEmail(authRequest.getEmail())
@@ -180,5 +181,9 @@ public class UserService {
         } catch (Exception e) {
             throw new RuntimeException("Authentication failed", e);
         }
+    }
+    public User getUserById(UUID id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }

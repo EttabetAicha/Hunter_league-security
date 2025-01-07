@@ -46,4 +46,5 @@ public class CompetitionAPI {
         Page<CompetitionRepoDTO> competitionDTOs = competitionService.getAllCompetitions(pageable);
         return ResponseEntity.ok(competitionDTOs);
     }
+    
 }

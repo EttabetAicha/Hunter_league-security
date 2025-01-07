@@ -23,6 +23,7 @@ public interface ParticipationVmMapper {
 
     @Mapping(target = "username", source = "user.username")
     @Mapping(target = "code", source = "competition.code")
+    @Mapping(target = "score", source = "score")
     ParticipationResponse toParticipationResponse(Participation participation);
 
 

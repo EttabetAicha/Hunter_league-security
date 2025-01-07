@@ -85,6 +85,11 @@ public class UserAPI {
         Pageable pageable = PageRequest.of(page, size, Sort.by("competition.date").descending());
         return userService.getUserCompetitionHistory(id, pageable);
     }
+    @GetMapping("/userId/{id}")
+    public ResponseEntity<UserResponse> getUserById(@PathVariable UUID id) {
+        User user = userService.getUserById(id);
+        return ResponseEntity.ok(userVmMapper.toUserResponse(user));
+    }
 
 
     @PostMapping("/login")

@@ -13,5 +13,6 @@ public class ParticipationResponse {
     private UUID id;
     private String username;
     private String code;
+    private double score;
 
 }
