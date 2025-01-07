@@ -8,6 +8,8 @@
     import com.aicha.hunter.web.vm.mapper.ParticipationVmMapper;
     import com.aicha.hunter.web.vm.response.CompetitionResultsResponse;
     import com.aicha.hunter.web.vm.response.ParticipationResponse;
+
+    import com.aicha.hunter.web.vm.response.PoduimResp;
     import org.springframework.data.domain.PageRequest;
     import org.springframework.data.domain.Pageable;
     import org.springframework.data.domain.Sort;
@@ -62,11 +64,12 @@
 
 
         @GetMapping("/podium/{competitionId}")
-        public List<CompetitionResultsResponse> getCompetitionPodium(@PathVariable UUID competitionId) {
+        public List<PoduimResp> getCompetitionPodium(@PathVariable UUID competitionId) {
             List<Participation> participations = participationService.getCompetitionPodium(competitionId);
-            return participationVmMapper.toParticipationResultResponse(participations);
+            return participations.stream()
+                    .map(participationVmMapper::toPodiumResponse)
+                    .collect(Collectors.toList());
         }
-        
         @GetMapping
         public ResponseEntity<List<ParticipationResponse>> getAllParticipations() {
             List<Participation> participations = participationService.getAllParticipations();

@@ -21,9 +21,11 @@ public class Participation{
     private User user;
 
     @ManyToOne
+
     private Competition competition;
 
     @OneToMany(mappedBy = "participation")
+
     private List<Hunt> hunts;
 
     private Double score;
